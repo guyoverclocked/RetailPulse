@@ -1,0 +1,16 @@
+{
+  "collapse-filter": false,
+  "search": "-path:\"07 Templates\"",
+  "showTags": true,
+  "showAttachments": false,
+  "hideUnresolved": true,
+  "showOrphans": false,
+  "colorGroups": [
+    {"query": "path:\"01 Project\"", "color": {"a": 1, "rgb": 3976046}},
+    {"query": "path:\"02 Roadmap\"", "color": {"a": 1, "rgb": 15105570}},
+    {"query": "path:\"03 Learn\"", "color": {"a": 1, "rgb": 8388736}},
+    {"query": "path:\"04 Build\"", "color": {"a": 1, "rgb": 14701138}},
+    {"query": "path:\"05 Portfolio\"", "color": {"a": 1, "rgb": 16750848}},
+    {"query": "path:\"06 Tracking\"", "color": {"a": 1, "rgb": 8421504}}
+  ]
+}

@@ -1,0 +1,48 @@
+# --- Data (Kaggle competition rules: never redistribute raw Rossmann files) ---
+data/raw/
+data/*.csv
+*.csv
+!tests/**/*.csv
+
+# Derived datasets and artifacts
+data/processed/
+data/features/
+artifacts/
+models/
+mlruns/
+reports/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+.eggs/
+.venv/
+venv/
+.uv-cache/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.coverage*
+coverage.xml
+htmlcov/
+
+# --- Environments & secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Tool-local session state ---
+.commandcode/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
