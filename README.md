@@ -56,26 +56,28 @@ MLForecast + LightGBM · Darts/PyTorch Forecasting (TFT challenger) · Chronos-2
 Optuna + MLflow · OR-Tools · Prefect · FastAPI · Streamlit + Plotly · pytest/Ruff/mypy ·
 uv + Docker · GitHub Actions · GCP (Cloud Run, Scheduler, GCS, BigQuery)
 
-Full reasoning per tool: [`01 Project/Technology Choices.md`](./01%20Project/Technology%20Choices.md)
+Full reasoning per tool: [`01 Project/Technology Choices.md`](./vault/01%20Project/Technology%20Choices.md)
 
 ## Data
 
 Rossmann Store Sales (Kaggle) — subject to Kaggle competition rules, so **raw files are not
-redistributed here**. See [`01 Project/Data and License Boundaries.md`](./01%20Project/Data%20and%20License%20Boundaries.md);
+redistributed here**. See [`01 Project/Data and License Boundaries.md`](./vault/01%20Project/Data%20and%20License%20Boundaries.md);
 download instructions will land in `data/README.md` during Phase 1.
 
 ## Repository layout
 
 ```text
 RetailPulse/
-├── 00 Start Here/    # Vault entry point: home, definition of done, study rhythm
-├── 01 Project/       # Brief, scope, metrics, architecture, tech choices, data rules
-├── 02 Roadmap/       # Phase-by-phase implementation plan
-├── 03 Learn/         # Concept notes: backtesting, quantiles, leakage contract, metrics
-├── 04 Build/         # Implementation notes per component
-├── 05 Portfolio/     # README/demo plan, resume story, retrospective
-├── 06 Tracking/      # Progress dashboard, weekly log, decision log, risk register
-└── 07 Templates/     # Weekly review, experiment record, ADR templates
+├── README.md
+└── vault/            # Obsidian vault — open THIS folder as the vault in Obsidian
+    ├── 00 Start Here/    # Vault entry point: home, definition of done, study rhythm
+    ├── 01 Project/       # Brief, scope, metrics, architecture, tech choices, data rules
+    ├── 02 Roadmap/       # Phase-by-phase implementation plan
+    ├── 03 Learn/         # Concept notes: backtesting, quantiles, leakage contract, metrics
+    ├── 04 Build/         # Implementation notes per component
+    ├── 05 Portfolio/     # README/demo plan, resume story, retrospective
+    ├── 06 Tracking/      # Progress dashboard, weekly log, decision log, risk register
+    └── 07 Templates/     # Weekly review, experiment record, ADR templates
 ```
 
 The Obsidian vault is the project's working brain; production code will live under
@@ -83,7 +85,7 @@ The Obsidian vault is the project's working brain; production code will live und
 
 ## Working agreement
 
-- Cadence: phased plan with recovery checkpoints (see [Master Roadmap](./02%20Roadmap/Master%20Roadmap.md))
-- Every decision and scope change recorded in [`06 Tracking/Decision Log.md`](./06%20Tracking/Decision%20Log.md)
-- Completion requires the checklist in [`00 Start Here/Definition of Done.md`](./00%20Start%20Here/Definition%20of%20Done.md)
+- Cadence: phased plan with recovery checkpoints (see [Master Roadmap](./vault/02%20Roadmap/Master%20Roadmap.md))
+- Every decision and scope change recorded in [`06 Tracking/Decision Log.md`](./vault/06%20Tracking/Decision%20Log.md)
+- Completion requires the checklist in [`00 Start Here/Definition of Done.md`](./vault/00%20Start%20Here/Definition%20of%20Done.md)
 - Resume bullets use measured backtest results only — no numbers are claimed before they exist
