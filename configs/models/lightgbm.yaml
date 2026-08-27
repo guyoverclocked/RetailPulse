@@ -1,0 +1,38 @@
+# LightGBM quantile candidate.
+objective: quantile
+quantiles: [0.10, 0.50, 0.90]
+seed: 42
+
+features:
+  lags: [1, 7, 14, 21, 28, 35]
+  rolling_windows: [7, 14, 28]
+  rolling_funcs: [mean, std, max]
+  calendar: true
+  promo: true
+  holidays: true
+  store_attributes: true
+  store_id: true
+
+defaults:
+  num_leaves: 127
+  learning_rate: 0.05
+  n_estimators: 1500
+  min_child_samples: 50
+  subsample: 0.8
+  colsample_bytree: 0.8
+  reg_alpha: 0.1
+  reg_lambda: 1.0
+  early_stopping_rounds: 50
+
+tuning:
+  enabled: true
+  n_trials: 40
+  timeout_minutes: 120
+  prune: true
+
+promotion_gate:
+  # Candidate must beat seasonal-naive WAPE on validation folds,
+  # coverage must land in this band, runtime must stay under this.
+  min_skill_vs_naive: 0.0
+  coverage_band: [0.75, 0.85]
+  max_backtest_minutes: 240

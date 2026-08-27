@@ -1,0 +1,22 @@
+# Challenger settings: deep-learning TFT and zero-shot Chronos-2.
+tft:
+  enabled: true
+  max_stores: 40  # stratified subset
+  input_chunk_length: 90
+  output_chunk_length: 30
+  hidden_size: 64
+  lstm_layers: 1
+  dropout: 0.1
+  batch_size: 64
+  n_epochs: 30
+  early_stop_patience: 5
+  time_limit_minutes: 480
+  quantiles: [0.10, 0.50, 0.90]
+
+chronos:
+  enabled: true
+  max_stores: 40  # same stratified subset as TFT
+  model_id: amazon/chronos-t5-small
+  prediction_length: 30
+  num_samples: 20
+  time_limit_minutes: 180
