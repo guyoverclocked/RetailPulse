@@ -41,7 +41,11 @@ class ClassicalModel(Model):
         train["y"] = train["Sales"]
         train["unique_id"] = train["Store"].astype(str)
 
-        model = AutoETS(season_length=self.season_length) if self.method == "ets" else AutoARIMA(season_length=self.season_length)
+        model = (
+            AutoETS(season_length=self.season_length)
+            if self.method == "ets"
+            else AutoARIMA(season_length=self.season_length)
+        )
         sf = StatsForecast(models=[model], freq="D", n_jobs=-1)
         sf.fit(train[["unique_id", "ds", "y"]])
 
@@ -59,7 +63,9 @@ class ClassicalModel(Model):
         )
         # Build Store x Date grid and merge forecasts onto it.
         stores = train["unique_id"].unique()
-        grid = pd.MultiIndex.from_product([stores, valid_dates], names=["unique_id", "ds"]).to_frame(index=False)
+        grid = pd.MultiIndex.from_product(
+            [stores, valid_dates], names=["unique_id", "ds"]
+        ).to_frame(index=False)
         out = grid.merge(pred, on=["unique_id", "ds"], how="left")
         out["Store"] = out["unique_id"].astype(int)
         out["Date"] = pd.to_datetime(out["ds"])

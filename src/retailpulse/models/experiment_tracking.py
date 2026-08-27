@@ -9,9 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import subprocess
-import time
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Any
 
 import pandas as pd
@@ -60,7 +58,9 @@ def git_commit() -> str:
         return "unknown"
 
 
-def track_backtest(model_name: str, params: dict[str, Any], metrics: dict[str, float], runtime: float) -> ExperimentRun:
+def track_backtest(
+    model_name: str, params: dict[str, Any], metrics: dict[str, float], runtime: float
+) -> ExperimentRun:
     """Record a backtest outcome to the local MLflow store."""
     import mlflow
 

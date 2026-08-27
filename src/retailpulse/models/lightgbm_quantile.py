@@ -96,26 +96,27 @@ class LightGBMQuantileModel(Model):
             out[f"lag_{lag}"] = grp.shift(lag)
         for win in self.max_roll_windows:
             shifted = grp.shift(1)
-            out[f"roll_{win}_mean"] = shifted.rolling(win, min_periods=1).mean().reset_index(level=0, drop=True)
-            out[f"roll_{win}_std"] = shifted.rolling(win, min_periods=1).std().reset_index(level=0, drop=True)
+            out[f"roll_{win}_mean"] = (
+                shifted.rolling(win, min_periods=1).mean().reset_index(level=0, drop=True)
+            )
+            out[f"roll_{win}_std"] = (
+                shifted.rolling(win, min_periods=1).std().reset_index(level=0, drop=True)
+            )
         return out
 
     def _feature_columns(self, df: pd.DataFrame) -> list[str]:
         """Numeric feature columns. Scheduled inputs (Open, Promo,
         SchoolHoliday, holiday flags) are legal known-future features; only
-        identity/target/observed-late/raw-string columns are excluded."""
+        identity/target/observed-late/raw-string columns are excluded. The
+        numeric filter keeps string metadata (StoreType, Assortment,
+        PromoInterval) out of the feature matrix without hand-listing them."""
         exclude = {
             "Store",
             "Date",
             "Sales",
             "Customers",
-            "StoreType",
-            "Assortment",
-            "StateHoliday",  # raw string; state_holiday_flag carries the signal
-            "DayOfWeek",  # redundant with weekday
-            "Promo2",  # raw; promo2_flag carries the signal
         }
-        return [c for c in df.columns if c not in exclude]
+        return [c for c in df.columns if c not in exclude and pd.api.types.is_numeric_dtype(df[c])]
 
     # ------------------------------------------------------------------
     # Training + recursive inference
@@ -166,8 +167,10 @@ class LightGBMQuantileModel(Model):
             fill = out_day["Sales_q50"].to_numpy(dtype=np.float64)
             working.loc[working["is_pred"] == 1, "Sales"] = fill
 
-        out = pd.concat(out_rows, ignore_index=True) if out_rows else pd.DataFrame(
-            columns=["Store", "Date", "Sales_q10", "Sales_q50", "Sales_q90"]
+        out = (
+            pd.concat(out_rows, ignore_index=True)
+            if out_rows
+            else pd.DataFrame(columns=["Store", "Date", "Sales_q10", "Sales_q50", "Sales_q90"])
         )
         return out, working
 
@@ -266,8 +269,6 @@ class LightGBMQuantileModel(Model):
         # Apply conformal corrections to open-store forecasts.
         out = out.copy()
         open_mask = out["Sales_q50"] > 0
-        out.loc[open_mask, "Sales_q10"] = np.maximum(
-            out.loc[open_mask, "Sales_q10"] - corr_lo, 0.0
-        )
+        out.loc[open_mask, "Sales_q10"] = np.maximum(out.loc[open_mask, "Sales_q10"] - corr_lo, 0.0)
         out.loc[open_mask, "Sales_q90"] = out.loc[open_mask, "Sales_q90"] + corr_hi
         return repair_crossings_df(out)

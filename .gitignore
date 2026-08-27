@@ -10,6 +10,7 @@ data/features/
 artifacts/
 models/
 !src/retailpulse/models/
+!configs/models/
 mlruns/
 reports/
 

@@ -80,7 +80,7 @@ def _reference_value(store_rows: pd.DataFrame, ref_date: pd.Timestamp, lag: int)
 def _training_residuals(train: pd.DataFrame, lag: int) -> tuple[float, float]:
     """P10/P90 residual quantiles of the predictor on the training period."""
     errors: list[float] = []
-    for store, sub in train.groupby("Store"):
+    for sub in (grp for _, grp in train.groupby("Store")):
         sub = sub.sort_values("Date")
         dates = sub["Date"].to_numpy()
         sales = sub["Sales"].to_numpy(dtype=np.float64)
