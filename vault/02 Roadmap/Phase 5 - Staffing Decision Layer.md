@@ -15,7 +15,7 @@ This phase converts forecast distributions into a transparent operational decisi
 ## Sequence
 
 1. [[Decision-Focused Forecasting]] — Dec 14-16
-2. Define assumptions and constraints — Dec 17-19
+2. [[Staffing Assumptions]] and constraints — Dec 17-19
 3. [[Staffing Optimizer]] implementation — Dec 20-27
 4. Policy comparison and year-end recovery — Dec 28-Jan 3
 

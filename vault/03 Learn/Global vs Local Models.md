@@ -27,6 +27,13 @@ Use local classical models as interpretable benchmarks and one global LightGBM m
 
 Separate store models are valid when stores differ radically or regulation requires isolation. Hierarchical reconciliation matters when forecasts must sum across formal regions; this dataset lacks a trustworthy hierarchy, so do not invent one.
 
+## Chain-total forecast
+
+The [[Project Brief]] requires a chain-total forecast. Decision: **bottom-up
+aggregation** — sum the per-store forecasts to get the chain total. No
+reconciliation is applied (there is no trustworthy hierarchy to reconcile
+against). Logged as an ADR in [[Decision Log]].
+
 ## Done when
 
 The model registry records whether each candidate is local or global and why.

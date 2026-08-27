@@ -17,7 +17,7 @@ The Rossmann competition data is subject to Kaggle competition rules. A portfoli
 - Do not commit raw competition files to the new public repository.
 - Provide Kaggle CLI/download instructions requiring the user to accept the rules.
 - Commit only schemas, metadata, a tiny synthetic sample, and derived aggregate examples when permitted.
-- Record source URL, retrieval date, checksum, row count, and license/terms.
+- Record source URL, retrieval date, **SHA-256** checksum, row count, and license/terms (Kaggle competition rules, accepted at download time).
 - Keep model artifacts and screenshots free of confidential or unnecessary row-level data.
 
 ## Alternatives

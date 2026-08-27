@@ -15,14 +15,24 @@ No single metric captures accuracy, bias, and uncertainty. A small scorecard pre
 
 ## Scorecard
 
-- **WAPE:** portfolio-level magnitude error; primary point metric.
-- **MAE:** interpretable average absolute error.
-- **Bias:** systematic over- or under-forecasting.
-- **Pinball loss:** quality of P10/P50/P90 quantiles.
-- **Coverage:** fraction of actuals inside P10–P90; target is near 80%.
-- **Interval width:** sharpness, interpreted alongside coverage.
+Let `y` = actual sales, `ŷ` = point forecast, `ŷ_q` = q-quantile forecast for
+`q ∈ {0.10, 0.50, 0.90}`, `N` = store-day pairs, `I(·)` = indicator.
 
-Calculate metrics overall, by store, horizon, promotion status, and open/closed status. Never let large stores hide poor small-store behavior.
+- **WAPE (primary point metric):** `WAPE = Σ|y - ŷ| / Σ|y|` — portfolio-level,
+  immune to zero-sales blowups.
+- **MAE:** `MAE = (1/N) Σ|y - ŷ|`
+- **Bias:** `Bias = (1/N) Σ(ŷ - y)` — positive = over-forecasting.
+- **MASE (secondary):** `MASE = MAE_model / MAE_seasonal_naive`, computed on the
+  same folds. RMSSE is dropped: MASE's seasonal-naive scale is the simpler
+  sufficient comparison.
+- **Pinball loss:** `L_q(y, ŷ_q) = q·(y - ŷ_q)` when `y ≥ ŷ_q`, else
+  `(1-q)·(ŷ_q - y)`; reported per q and averaged over the three quantiles.
+  (Pinball at P50 is MAE/2 — a redundancy, not a free extra metric.)
+- **Coverage:** `(1/N) Σ I(ŷ_0.10 ≤ y ≤ ŷ_0.90)`; target ≈ 80% (the nominal band).
+- **Interval width:** `(1/N) Σ(ŷ_0.90 - ŷ_0.10)`; interpreted only alongside coverage.
+- **Skill vs seasonal naive:** `1 - WAPE_model / WAPE_sn` (positive = better).
+
+Calculate metrics overall, by store, horizon, promotion status, and open/closed status. Never let large stores hide poor small-store behavior. Closed stores are deterministic zeros — forecasts and metrics both respect that rule.
 
 ## Alternatives
 

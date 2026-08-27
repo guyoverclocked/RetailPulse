@@ -14,7 +14,7 @@ One accuracy number cannot prove forecast usefulness, calibration, or operabilit
 
 ## Forecast evidence
 
-- WAPE, MAE, and RMSSE/MASE
+- WAPE (primary), MAE, and MASE (secondary; RMSSE dropped — MASE's seasonal-naive scale suffices)
 - bias by store segment and horizon
 - P10/P50/P90 pinball loss
 - P10-P90 empirical coverage and interval width

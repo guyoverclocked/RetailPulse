@@ -3,7 +3,7 @@ type: roadmap
 status: planned
 start: 2026-08-31
 deadline: 2027-01-31
-estimated_hours: 120-145
+estimated_hours: 125-155
 tags: [retailpulse, roadmap, schedule]
 ---
 # Master Roadmap
@@ -25,8 +25,8 @@ tags: [retailpulse, roadmap, schedule]
 
 ## Recovery checkpoints
 
-Sep 27, Oct 25, Nov 22, and Jan 3 are scope/recovery gates. Do not borrow time from final evaluation or testing.
+Sep 27, Oct 25, Nov 22, Dec 13, Jan 3, and Jan 24 are scope/recovery gates. Do not borrow time from final evaluation or testing.
 
 ## Completion rule
 
-A phase closes only after its evidence is linked from [[Progress Dashboard]].
+A phase closes only after its evidence is linked from [[Progress Dashboard]]. Overall acceptance follows [[Definition of Done]].

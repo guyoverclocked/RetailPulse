@@ -1,6 +1,6 @@
 ---
 type: guide
-status: active
+status: planned
 start: 2026-08-26
 deadline: 2026-08-30
 estimated_hours: 0.5
@@ -33,6 +33,12 @@ A large project becomes manageable when every session has one question, one outp
 ## If you fall behind
 
 Use [[Recovery and Scope Rules]]. Do not silently compress testing, backtesting, or documentation. Reduce challengers or cloud extras first.
+
+## Orientation week
+
+Aug 26-30 is a pre-roadmap orientation week. It sits before the formal commitment
+window ([[Master Roadmap]], Aug 31) and covers only vault setup and the start-here
+reading — no phase work is scheduled inside it.
 
 ## Next
 

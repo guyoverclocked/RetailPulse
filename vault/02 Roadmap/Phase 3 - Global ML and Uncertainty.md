@@ -18,7 +18,7 @@ The primary candidate must learn across stores and express uncertainty, not mere
 2. [[LightGBM Quantile Model]] — Oct 30-Nov 8
 3. [[Experiment Tracking]] — Nov 9-13
 4. Optuna tuning within training windows — Nov 14-17
-5. Calibration and segment analysis — Nov 18-22, including recovery
+5. Calibration and segment analysis — Nov 18-22, inside the Nov 16-22 recovery window from [[Recovery and Scope Rules]]
 
 ## Deliverable
 

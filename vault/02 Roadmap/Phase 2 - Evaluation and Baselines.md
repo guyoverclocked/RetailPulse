@@ -19,7 +19,7 @@ This phase creates the court in which every later model must compete fairly.
 3. [[Forecast Metrics]] — Oct 8-11
 4. [[Baselines]] — Oct 12-18
 5. [[Testing and CI]] foundation — Oct 19-22
-6. Baseline report and recovery — Oct 23-25
+6. Baseline report — Oct 23-25, inside the Oct 19-25 recovery window from [[Recovery and Scope Rules]]
 
 ## Deliverable
 

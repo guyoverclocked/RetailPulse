@@ -1,6 +1,6 @@
 ---
 type: home
-status: active
+status: planned
 start: 2026-08-26
 deadline: 2027-01-31
 estimated_hours: 0.5

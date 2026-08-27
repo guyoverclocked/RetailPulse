@@ -11,7 +11,7 @@ tags: [retailpulse, build]
 
 Follow this dependency path:
 
-[[Environment Setup]] → [[Data Ingestion]] → [[Data Validation]] → [[Exploratory Analysis]] → [[Baselines]] → [[LightGBM Quantile Model]] → [[Experiment Tracking]] → [[TFT Challenger]] + [[Chronos-2 Benchmark]] → [[Staffing Optimizer]] → [[Forecast API]] + [[Planning Dashboard]] → [[Workflow Orchestration]] → [[Monitoring Pipeline]] → [[GCP Deployment]]
+[[Environment Setup]] → [[Data Ingestion]] → [[Data Validation]] → [[Exploratory Analysis]] → [[Baselines]] → [[LightGBM Quantile Model]] → [[Experiment Tracking]] → [[TFT Challenger]] + [[Chronos-2 Benchmark]] → [[Staffing Assumptions]] → [[Staffing Optimizer]] → [[Forecast API]] + [[Planning Dashboard]] → [[Workflow Orchestration]] → [[Monitoring Pipeline]] → [[GCP Deployment]]
 
 [[Testing and CI]] starts early and grows with every node.
 
