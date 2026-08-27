@@ -163,9 +163,7 @@ def _make_train_table(
 
         # Competition effect: nearer competition slightly reduces customers.
         comp = row["CompetitionDistance"]
-        comp_mult = (
-            1.0 if pd.isna(comp) else 1.0 - 0.08 * np.exp(-float(comp) / 2000.0)
-        )
+        comp_mult = 1.0 if pd.isna(comp) else 1.0 - 0.08 * np.exp(-float(comp) / 2000.0)
 
         # Promo2 stores get a mild ongoing uplift in the announced months.
         promo2_mult = np.ones(n)
