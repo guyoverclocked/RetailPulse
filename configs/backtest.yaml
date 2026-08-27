@@ -1,0 +1,14 @@
+# Backtest evaluation settings.
+horizon_days: 30
+n_folds: 3
+min_train_days: 365
+gap_days: 0  # production issues forecasts at origin; gap of 0 keeps it strict
+
+holdout:
+  # Sealed final 30 days. Flip to false ONLY after the champion-selection ADR lands.
+  locked: true
+
+metrics:
+  quantiles: [0.10, 0.50, 0.90]
+  coverage_target: 0.80
+  segments: [store, horizon, promo, open]

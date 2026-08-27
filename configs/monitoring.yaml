@@ -1,0 +1,22 @@
+# Monitoring thresholds. Seed warning/failure values from historical backtests
+# once Phase 3 completes; these are starting defaults.
+rolling_window_days: 30
+
+data:
+  freshness_warn_hours: 24
+  freshness_fail_hours: 72
+  min_store_coverage: 0.99
+
+model:
+  wape_warn: 0.35
+  wape_fail: 0.55
+  bias_warn: 0.10
+  bias_fail: 0.25
+  coverage_warn_band: [0.70, 0.90]
+  coverage_fail_band: [0.60, 1.00]
+  pinball_fail: 2.0  # multiple of seasonal-naive pinball
+
+service:
+  api_latency_p95_warn_ms: 500
+  api_latency_p95_fail_ms: 1500
+  artifact_age_fail_hours: 48

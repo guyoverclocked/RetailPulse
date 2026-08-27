@@ -1,0 +1,11 @@
+Store,StoreType,Assortment,CompetitionDistance,CompetitionOpenSinceMonth,CompetitionOpenSinceYear,Promo2,Promo2SinceWeek,Promo2SinceYear,PromoInterval
+1,a,b,6237.0,12.0,2009.0,1,44.0,2011.0,"Feb,May,Aug,Nov"
+2,d,c,1118.0,9.0,1994.0,0,,,
+3,c,c,9190.0,5.0,2001.0,0,,,
+4,b,c,6135.0,12.0,1993.0,1,1.0,2012.0,"Feb,May,Aug,Nov"
+5,b,c,3279.0,5.0,2007.0,0,,,
+6,d,c,2085.0,4.0,2001.0,0,,,
+7,a,b,2267.0,11.0,1998.0,1,41.0,2010.0,"Jan,Apr,Jul,Oct"
+8,c,a,,,,1,35.0,2010.0,"Mar,Jun,Sept,Dec"
+9,a,c,898.0,1.0,2004.0,0,,,
+10,a,b,3427.0,6.0,2006.0,1,37.0,2010.0,"Feb,May,Aug,Nov"

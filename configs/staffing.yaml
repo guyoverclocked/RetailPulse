@@ -1,0 +1,22 @@
+# Staffing cost model. Every parameter is a SIMULATED assumption, not an
+# operational fact. Edit freely; the optimizer reads only from here.
+assumptions:
+  labor_productivity_sales_per_hour: 100   # 1 staff-hour serves ~100 sales units
+  wage_per_hour: 15.0                       # simulated wage (currency-neutral)
+  base_hours_per_open_store: 4.0            # minimum coverage even at zero forecast
+  understaff_penalty_per_hour: 45.0         # 3x wage: cost of lost service
+  overstaff_penalty_per_hour: 22.5          # 1.5x wage: idle labor
+  horizon_days: 30
+
+constraints:
+  min_hours_per_open_store: 4.0
+  max_hours_per_store: 40.0
+  budget_hours: 6000.0  # chain-wide daily labor budget (shared across stores)
+
+scenarios:
+  p50_mode: expected
+  p90_mode: risk_averse
+
+sensitivity:
+  productivity_factors: [0.5, 1.0, 1.5]
+  penalty_factors: [0.5, 1.0, 1.5]
