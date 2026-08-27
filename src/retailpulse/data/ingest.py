@@ -14,7 +14,7 @@ import hashlib
 import json
 import uuid
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import duckdb
@@ -90,7 +90,7 @@ def _write_manifest(
 ) -> None:
     manifest = {
         "run_id": run_id,
-        "created_at_utc": datetime.now(timezone.utc).isoformat(),
+        "created_at_utc": datetime.now(UTC).isoformat(),
         "source": source,
         "files": {
             "train.csv": {

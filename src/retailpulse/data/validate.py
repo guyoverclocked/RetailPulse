@@ -112,7 +112,6 @@ def curated_schema() -> pa.DataFrameSchema:
 
 def validate_train(df: pl.DataFrame) -> pl.DataFrame:
     """Validate raw train frame (converts to pandas for pandera, back after)."""
-    import pandas as pd
 
     validated = train_schema().validate(df.to_pandas())
     return pl.from_pandas(validated)
@@ -120,7 +119,6 @@ def validate_train(df: pl.DataFrame) -> pl.DataFrame:
 
 def validate_store(df: pl.DataFrame) -> pl.DataFrame:
     """Validate raw store frame."""
-    import pandas as pd
 
     validated = store_schema().validate(df.to_pandas())
     return pl.from_pandas(validated)
@@ -128,14 +126,15 @@ def validate_store(df: pl.DataFrame) -> pl.DataFrame:
 
 def validate_curated(df: pl.DataFrame) -> pl.DataFrame:
     """Validate curated frame plus the structural-zero rule."""
-    import pandas as pd
 
     validated = curated_schema().validate(df.to_pandas())
     # Structural rule: closed stores have zero sales (and zero customers).
     mask = (validated["Open"] == 0) & ((validated["Sales"] != 0) | (validated["Customers"] != 0))
     if mask.any():
         n = int(mask.sum())
-        raise ValueError(f"structural-zero violation: {n} closed store-days have non-zero sales/customers")
+        raise ValueError(
+            f"structural-zero violation: {n} closed store-days have non-zero sales/customers"
+        )
     return pl.from_pandas(validated)
 
 

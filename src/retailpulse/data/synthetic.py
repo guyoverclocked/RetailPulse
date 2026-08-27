@@ -19,6 +19,7 @@ competition effects, random closures.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -117,18 +118,21 @@ def _german_state_holidays(start: str, end: str) -> pd.DatetimeIndex:
     return pd.DatetimeIndex(dates)
 
 
-def _make_train_table(params: SyntheticParams, stores: pd.DataFrame, rng: np.random.Generator) -> pd.DataFrame:
+def _make_train_table(
+    params: SyntheticParams, stores: pd.DataFrame, rng: np.random.Generator
+) -> pd.DataFrame:
     dates = pd.date_range(params.start_date, params.end_date, freq="D")
     holidays = _german_state_holidays(params.start_date, params.end_date)
     holiday_set = set(holidays.date)
 
     frames: list[pd.DataFrame] = []
-    for row in stores.itertuples(index=False):
+    store_dicts = stores.to_dict(orient="records")
+    for row in store_dicts:
         n = len(dates)
         dow = np.array([d.dayofweek for d in dates], dtype=np.int64)  # Mon=0..Sun=6
 
         # Base customer volume per store type, with persistent store noise.
-        type_level = {"a": 900.0, "b": 700.0, "c": 450.0, "d": 300.0}[str(row.StoreType)]
+        type_level = {"a": 900.0, "b": 700.0, "c": 450.0, "d": 300.0}[str(row["StoreType"])]
         store_scale = rng.lognormal(mean=0.0, sigma=0.25)
         base = type_level * store_scale
 
@@ -158,19 +162,16 @@ def _make_train_table(params: SyntheticParams, stores: pd.DataFrame, rng: np.ran
         school_mult = np.where(school_holiday & ~state_holiday, 1.1, 1.0)
 
         # Competition effect: nearer competition slightly reduces customers.
-        comp = row.CompetitionDistance
-        if np.isnan(comp):
-            comp_mult = 1.0
-        else:
-            comp_mult = 1.0 - 0.08 * np.exp(-float(comp) / 2000.0)
+        comp = row["CompetitionDistance"]
+        comp_mult = (
+            1.0 if pd.isna(comp) else 1.0 - 0.08 * np.exp(-float(comp) / 2000.0)
+        )
 
         # Promo2 stores get a mild ongoing uplift in the announced months.
         promo2_mult = np.ones(n)
-        if row.Promo2 == 1:
-            months = str(row.PromoInterval).split(",")
-            promo2_mult = np.where(
-                [d.strftime("%b") in months for d in dates], 1.15, 1.0
-            )
+        if row["Promo2"] == 1:
+            months = str(row["PromoInterval"]).split(",")
+            promo2_mult = np.where([d.strftime("%b") in months for d in dates], 1.15, 1.0)
 
         customers = customers * holiday_dip * school_mult * comp_mult * promo2_mult
         promo_boost = np.where(promo & open_flag, 1.3, 1.0)
@@ -188,7 +189,7 @@ def _make_train_table(params: SyntheticParams, stores: pd.DataFrame, rng: np.ran
         frames.append(
             pd.DataFrame(
                 {
-                    "Store": np.full(n, row.Store, dtype=np.int64),
+                    "Store": np.full(n, row["Store"], dtype=np.int64),
                     "DayOfWeek": dow + 1,  # Rossmann encodes Mon=1..Sun=7
                     "Date": dates,
                     "Sales": np.round(sales, 0).astype(np.int64),
@@ -230,7 +231,7 @@ def generate_frames(params: SyntheticParams | None = None) -> tuple[pd.DataFrame
     return stores, train
 
 
-def _write_dir(out_dir, params: SyntheticParams) -> None:
+def _write_dir(out_dir: Path, params: SyntheticParams) -> None:
     stores, train = generate_frames(params)
     ensure_dir(out_dir)
     stores.to_csv(out_dir / "store.csv", index=False)

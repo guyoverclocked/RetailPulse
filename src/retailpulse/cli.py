@@ -19,7 +19,11 @@ app = typer.Typer(
 
 
 @app.command()
-def sample_data(fixture: bool = typer.Option(False, "--fixture", help="Also regenerate the committed CI fixture")) -> None:
+def sample_data(
+    fixture: bool = typer.Option(
+        False, "--fixture", help="Also regenerate the committed CI fixture"
+    ),
+) -> None:
     """Generate the medium synthetic dataset under data/sample/."""
     from retailpulse.data.synthetic import generate_ci_fixture, generate_sample_dataset
 

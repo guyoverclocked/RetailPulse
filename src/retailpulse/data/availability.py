@@ -70,10 +70,7 @@ class FeatureDeclaration:
 
 def availability_table() -> pd.DataFrame:
     """The committed feature-availability table (source columns)."""
-    rows = [
-        {"column": name, "availability": cls}
-        for name, cls in AVAILABILITY.items()
-    ]
+    rows = [{"column": name, "availability": cls} for name, cls in AVAILABILITY.items()]
     return pd.DataFrame(rows).sort_values(["availability", "column"]).reset_index(drop=True)
 
 
@@ -98,7 +95,9 @@ def is_legal_feature(name: str) -> bool:
 
 def all_legal_features_declared() -> bool:
     """True if every declared column has a recognized availability class."""
-    return all(cls in _LEGAL_FEATURE_CLASSES | {"observed-late", "target"} for cls in AVAILABILITY.values())
+    return all(
+        cls in _LEGAL_FEATURE_CLASSES | {"observed-late", "target"} for cls in AVAILABILITY.values()
+    )
 
 
 def assert_no_future_rows(

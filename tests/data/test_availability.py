@@ -24,7 +24,9 @@ def test_target_and_observed_late_are_forbidden_features() -> None:
 
 
 def test_scheduled_and_static_are_legal() -> None:
-    assert_legal_features(["Store", "StoreType", "Date", "DayOfWeek", "Promo", "Open"], context="test")
+    assert_legal_features(
+        ["Store", "StoreType", "Date", "DayOfWeek", "Promo", "Open"], context="test"
+    )
 
 
 def test_undeclared_column_rejected() -> None:
