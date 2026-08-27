@@ -1,0 +1,35 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - RETAILPULSE_SEED=42
+    volumes:
+      - ./data:/app/data
+      - ./artifacts:/app/artifacts
+    command: uv run uvicorn app.api_main:app --host 0.0.0.0 --port 8000
+
+  dashboard:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000
+    volumes:
+      - ./data:/app/data
+      - ./artifacts:/app/artifacts
+    command: uv run streamlit run app/dashboard_main.py --server.port 8501 --server.address 0.0.0.0
+    depends_on:
+      - api
+
+  flows:
+    build: .
+    environment:
+      - RETAILPULSE_SEED=42
+    volumes:
+      - ./data:/app/data
+      - ./artifacts:/app/artifacts
+    command: uv run python -c "from flows import daily_flow; daily_flow()"
+    depends_on:
+      - api
