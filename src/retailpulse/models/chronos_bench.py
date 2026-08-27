@@ -40,8 +40,7 @@ class ChronosBenchmark(Model):
             from chronos import ChronosPipeline
         except ImportError as exc:
             raise RuntimeError(
-                "Chronos benchmark requires the 'challengers' extra: "
-                "`uv sync --all-extras`"
+                "Chronos benchmark requires the 'challengers' extra: `uv sync --all-extras`"
             ) from exc
 
         pipeline = ChronosPipeline.from_pretrained(

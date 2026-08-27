@@ -46,8 +46,7 @@ class DartsTFTModel(Model):
             from darts.models import TFTModel
         except ImportError as exc:
             raise RuntimeError(
-                "Darts TFT challenger requires the 'challengers' extra: "
-                "`uv sync --all-extras`"
+                "Darts TFT challenger requires the 'challengers' extra: `uv sync --all-extras`"
             ) from exc
 
         stores = stratified_store_subset(train, self.max_stores)
@@ -81,9 +80,7 @@ class DartsTFTModel(Model):
                 pl_trainer_kwargs={"enable_progress_bar": False},
             )
             model.fit(series, future_covariates=cov)
-            pred = model.predict(
-                n=horizon, future_covariates=cov, num_samples=50
-            )
+            pred = model.predict(n=horizon, future_covariates=cov, num_samples=50)
             df = pred.quantile_df()
             df = df.reset_index().rename(columns={"index": "Date"})
             df["Store"] = store

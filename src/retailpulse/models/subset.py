@@ -22,18 +22,9 @@ def stratified_store_subset(
     Groups by mean-sales quartile and volatility quartile, then samples each
     cell proportionally to its size up to ``max_stores`` total.
     """
-    store_stats = (
-        train.groupby("Store")["Sales"]
-        .agg(["mean", "std"])
-        .fillna(0)
-        .reset_index()
-    )
-    store_stats["size_q"] = pd.qcut(
-        store_stats["mean"], q=4, labels=False, duplicates="drop"
-    )
-    store_stats["vol_q"] = pd.qcut(
-        store_stats["std"], q=4, labels=False, duplicates="drop"
-    )
+    store_stats = train.groupby("Store")["Sales"].agg(["mean", "std"]).fillna(0).reset_index()
+    store_stats["size_q"] = pd.qcut(store_stats["mean"], q=4, labels=False, duplicates="drop")
+    store_stats["vol_q"] = pd.qcut(store_stats["std"], q=4, labels=False, duplicates="drop")
     store_stats["cell"] = store_stats["size_q"].astype(str) + "_" + store_stats["vol_q"].astype(str)
 
     rng = np.random.default_rng(seed)

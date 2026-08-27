@@ -80,9 +80,7 @@ def select_champion(
 
     if not candidate.empty:
         cand = candidate.iloc[0]
-        reasons.append(
-            f"LightGBM WAPE {cand['wape']:.4f}, coverage {cand['coverage']:.4f}"
-        )
+        reasons.append(f"LightGBM WAPE {cand['wape']:.4f}, coverage {cand['coverage']:.4f}")
         for _, row in others.iterrows():
             if row["model"] == baseline:
                 continue
@@ -94,9 +92,9 @@ def select_champion(
         champion = "lightgbm_quantile"
     else:
         # Candidate failed; best challenger with valid coverage in [0.7, 0.9]
-        valid = scored[
-            (scored["coverage"] >= 0.7) & (scored["coverage"] <= 0.9)
-        ].sort_values("wape")
+        valid = scored[(scored["coverage"] >= 0.7) & (scored["coverage"] <= 0.9)].sort_values(
+            "wape"
+        )
         if valid.empty:
             champion = baseline
             reasons.append("all candidates failed; baseline stands")
@@ -137,9 +135,7 @@ def evaluate_holdout_once(
     """Evaluate the champion on the sealed holdout — call exactly once."""
     fold = splitter.holdout()  # raises if still locked
     # Reuse the fold runner via a fresh one-fold splitter.
-    mini = RollingOriginSplitter(
-        horizon_days=splitter.horizon_days, n_folds=1
-    )
+    mini = RollingOriginSplitter(horizon_days=splitter.horizon_days, n_folds=1)
     mini.holdout_locked = False
     mini.fit(data["Date"])
     # Override folds to point at the holdout window.
