@@ -41,7 +41,7 @@ def ingest() -> None:
 @app.command()
 def validate() -> None:
     """Run data-contract validation on curated tables and fail hard on violations."""
-    from retailpulse.data.validate import run_validation
+    from retailpulse.data.ingest import run_validation
 
     run_validation()
 
