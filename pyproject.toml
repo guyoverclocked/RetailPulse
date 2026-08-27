@@ -80,7 +80,7 @@ python_version = "3.12"
 strict = true
 
 [[tool.mypy.overrides]]
-module = ["lightgbm.*", "mlforecast.*", "statsforecast.*", "ortools.*", "mlflow.*", "optuna.*"]
+module = ["lightgbm.*", "mlforecast.*", "statsforecast.*", "ortools.*", "mlflow.*", "optuna.*", "darts.*", "chronos.*", "torch.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
