@@ -9,6 +9,7 @@ data/processed/
 data/features/
 artifacts/
 models/
+!src/retailpulse/models/
 mlruns/
 reports/
 
